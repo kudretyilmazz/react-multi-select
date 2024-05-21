@@ -1,0 +1,48 @@
+// Import
+@import "../variables.scss";
+
+.app {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 200px;
+
+	&-select-wrapper {
+		width: 30%;
+
+		.render-item {
+			display: flex;
+			padding: $space-lg 0;
+			column-gap: $space-md;
+			.avatar {
+				width: 40px;
+				height: 40px;
+				border-radius: $radius-md;
+			}
+
+			.info {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+
+				.name {
+					font-weight: 500;
+					color: $primary-dark-color;
+					font-size: $font-md;
+					user-select: none;
+
+					i {
+						font-weight: 700;
+					}
+				}
+
+				.episodes {
+					user-select: none;
+					color: $primary-color;
+					font-size: $font-md;
+					font-weight: 400;
+				}
+			}
+		}
+	}
+}

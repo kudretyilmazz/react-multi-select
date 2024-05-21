@@ -1,0 +1,97 @@
+// Import
+@import "../variables.scss";
+
+.multi-select {
+	position: relative;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+
+	.input-container {
+		flex: 1;
+		min-height: 44px;
+		border-radius: $radius-md;
+		border: 2px solid $primary-color;
+		padding: $space-sm $space-lg;
+		padding-right: 24px;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: $space-sm;
+
+		.chevron-down {
+			width: 24px;
+			height: 24px;
+			transition: rotate 0.4s ease;
+			position: absolute;
+			right: 8px;
+
+			&.active {
+				rotate: 180deg;
+			}
+		}
+
+		.selected-input-item {
+			flex-shrink: 0;
+			padding: $space-sm $space-md;
+			border-radius: $radius-sm;
+			background-color: $primary-color;
+			color: $white-color;
+			display: flex;
+			align-items: center;
+			column-gap: 4px;
+
+			.icon {
+				width: 16px;
+				height: 16px;
+			}
+		}
+
+		.input {
+			min-width: 30px;
+			flex: 1;
+		}
+	}
+
+	.dropdown {
+		width: 100%;
+		border-radius: $radius-md;
+		max-height: 0;
+		transition: max-height 0.4s ease;
+		overflow: hidden;
+		opacity: 0;
+		padding: $space-lg 0;
+		border: 2px solid $primary-color;
+		margin-top: 2px;
+
+		&.opened {
+			max-height: 400px;
+			opacity: 1;
+			overflow-y: auto;
+		}
+
+		.dropdown-option {
+			display: flex;
+			align-items: center;
+
+			// &.selected {
+			// }
+
+			&.active-option {
+				background-color: $primary-very-light-color;
+			}
+
+			&:not(:last-child) {
+				border-bottom: 1px solid $primary-dark-color;
+			}
+
+			.inner {
+				padding: 0 $space-lg;
+			}
+
+			.checkbox-area {
+				padding: 0 $space-sm;
+			}
+		}
+	}
+}

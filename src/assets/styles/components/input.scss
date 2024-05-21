@@ -1,0 +1,14 @@
+// Import
+@import "../variables.scss";
+
+.input {
+	height: 40px;
+	font-size: $font-lg;
+	font-weight: 400;
+	border: none;
+	display: block;
+
+	&:focus {
+		outline: none;
+	}
+}

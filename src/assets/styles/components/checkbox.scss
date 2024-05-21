@@ -1,0 +1,12 @@
+// Import
+@import "../variables.scss";
+
+.checkbox {
+	width: 18px;
+	height: 18px;
+	accent-color: $primary-color;
+}
+
+input[type="checkbox"] {
+	appearance: checkbox !important;
+}

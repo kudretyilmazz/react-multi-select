@@ -1,8 +1,10 @@
 //  Import
-@import "./fonts.scss", "./reset.scss";
+@import "./reset.scss", "./fonts.scss";
 
 html,
-body {
+body,
+#root {
 	font-family: "Inter", sans-serif;
 	height: 100%;
+	scroll-behavior: smooth;
 }
