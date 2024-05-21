@@ -1,5 +1,5 @@
 // Import React
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 // Import Hooks
 import useOutsideClick from "@/hooks/use-click-outside";
@@ -32,6 +32,7 @@ export default function MultiSelect(props: IMultiSelectProps) {
 
 	// Variables
 	const ref = useOutsideClick(() => setIsFocused(false));
+	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	// Functions
 	const handleFocus = () => setIsFocused(true);
@@ -110,6 +111,7 @@ export default function MultiSelect(props: IMultiSelectProps) {
 				handleRemove={handleSelect}
 				onSearch={onSearch}
 				loading={loading}
+				ref={dropdownRef}
 			/>
 			<MultiSelectDropdown
 				isVisible={isFocused}
@@ -120,6 +122,7 @@ export default function MultiSelect(props: IMultiSelectProps) {
 				activeOption={activeOption}
 				onReachEnd={onReachEnd}
 				loading={loading}
+				topOffset={dropdownRef.current?.clientHeight ?? 52}
 			/>
 		</div>
 	);

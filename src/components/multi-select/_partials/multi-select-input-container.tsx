@@ -1,5 +1,5 @@
 // Import React
-import { useCallback, useState, ChangeEvent } from "react";
+import { useCallback, useState, ChangeEvent, forwardRef } from "react";
 
 // Import Components
 import Input from "@/components/input/input";
@@ -24,62 +24,62 @@ interface IMultiSelectInputContainerProps {
 	loading?: boolean;
 }
 
-function MultiSelectInputContainer(props: IMultiSelectInputContainerProps) {
-	// Props Destruction
-	const {
-		isFocused,
-		value,
-		labelKey,
-		data,
-		valueKey,
-		handleFocus,
-		handleRemove,
-		onSearch,
-		loading,
-	} = props;
+export default forwardRef<HTMLDivElement, IMultiSelectInputContainerProps>(
+	function MultiSelectInputContainer(props, ref) {
+		// Props Destruction
+		const {
+			isFocused,
+			value,
+			labelKey,
+			data,
+			valueKey,
+			handleFocus,
+			handleRemove,
+			onSearch,
+			loading,
+		} = props;
 
-	// useStates
-	const [search, setSearch] = useState("");
+		// useStates
+		const [search, setSearch] = useState("");
 
-	// Functions
-	const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
-		setSearch(e.target.value);
-		onSearch(e.target.value);
-	};
+		// Functions
+		const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+			setSearch(e.target.value);
+			onSearch(e.target.value);
+		};
 
-	const getSelectedRecords = useCallback(() => {
-		return value.map(item => data.find(dataItem => dataItem[valueKey] === item)).filter(Boolean);
-	}, [value, data, valueKey]);
+		const getSelectedRecords = useCallback(() => {
+			return value.map(item => data.find(dataItem => dataItem[valueKey] === item)).filter(Boolean);
+		}, [value, data, valueKey]);
 
-	const InputSelectedItems = () => {
-		const selectedItems = getSelectedRecords();
-		return selectedItems.map((item, index) => (
-			<div
-				key={"selected_input_item_" + index}
-				className="selected-input-item"
-				onClick={() => item && handleRemove(item, index)}
-			>
-				{item?.[labelKey]}
-				<img src={Close} className="icon" />
+		const InputSelectedItems = () => {
+			const selectedItems = getSelectedRecords();
+			return selectedItems.map((item, index) => (
+				<div
+					key={"selected_input_item_" + index}
+					className="selected-input-item"
+					onClick={() => item && handleRemove(item, index)}
+				>
+					{item?.[labelKey]}
+					<img src={Close} className="icon" />
+				</div>
+			));
+		};
+
+		return (
+			<div className="input-container" ref={ref}>
+				<InputSelectedItems />
+				<Input value={search} onChange={onChangeSearch} className="input" onFocus={handleFocus} />
+				{loading ? (
+					<Spinner />
+				) : (
+					<img
+						src={ChevronDown}
+						className={clsx("chevron-down", isFocused && "active")}
+						onFocus={handleFocus}
+					/>
+				)}
 			</div>
-		));
-	};
-
-	return (
-		<div className="input-container">
-			<InputSelectedItems />
-			<Input value={search} onChange={onChangeSearch} className="input" onFocus={handleFocus} />
-			{loading ? (
-				<Spinner />
-			) : (
-				<img
-					src={ChevronDown}
-					className={clsx("chevron-down", isFocused && "active")}
-					onFocus={handleFocus}
-				/>
-			)}
-		</div>
-	);
-}
-
-export default MultiSelectInputContainer;
+		);
+	}
+);

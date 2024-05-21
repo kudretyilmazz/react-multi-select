@@ -9,6 +9,7 @@
 
 	.input-container {
 		flex: 1;
+		background-color: $white-color;
 		min-height: 44px;
 		border-radius: $radius-md;
 		border: 2px solid $primary-color;
@@ -61,8 +62,11 @@
 	}
 
 	.dropdown {
+		background-color: $white-color;
 		width: 100%;
 		border-radius: $radius-md;
+		position: absolute;
+		top: 52px;
 		max-height: 0;
 		transition: max-height 0.4s ease;
 		overflow: hidden;

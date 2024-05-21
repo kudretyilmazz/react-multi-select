@@ -16,6 +16,7 @@ interface IMultiSelectDropdownProps {
 	activeOption: number;
 	onReachEnd?: () => void;
 	loading?: boolean;
+	topOffset?: number;
 }
 
 export default function MultiSelectDropdown(props: IMultiSelectDropdownProps) {
@@ -29,6 +30,7 @@ export default function MultiSelectDropdown(props: IMultiSelectDropdownProps) {
 		activeOption,
 		onReachEnd,
 		loading,
+		topOffset = 0,
 	} = props;
 
 	// Variables
@@ -70,7 +72,12 @@ export default function MultiSelectDropdown(props: IMultiSelectDropdownProps) {
 	};
 
 	return (
-		<div ref={ref} onScroll={handleScroll} className={clsx("dropdown", isVisible && "opened")}>
+		<div
+			ref={ref}
+			onScroll={handleScroll}
+			className={clsx("dropdown", isVisible && "opened")}
+			style={{ top: topOffset + 4 }}
+		>
 			{generateDropdownItems()}
 			{data?.length === 0 && !loading && (
 				<p className="not-found">Aramanıza göre bir eşleşme bulunamadı</p>

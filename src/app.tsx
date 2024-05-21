@@ -78,6 +78,7 @@ function App() {
 					onSearch={handleSearch}
 					onReachEnd={fetchNextPage}
 				/>
+				{/* <div style={{ height: 200, background: "red" }}></div> */}
 			</div>
 		</div>
 	);
