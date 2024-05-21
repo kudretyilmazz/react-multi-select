@@ -1,3 +1,6 @@
+// Import React
+import { useRef } from "react";
+
 // Import Components
 import Checkbox from "@/components/checkbox/checkbox";
 
@@ -11,11 +14,25 @@ interface IMultiSelectDropdownProps {
 	handleSelect: (item: Record<string, any>, index?: number) => void;
 	getIsSelected: (item: Record<string, any>) => boolean;
 	activeOption: number;
+	onReachEnd?: () => void;
+	loading?: boolean;
 }
 
 export default function MultiSelectDropdown(props: IMultiSelectDropdownProps) {
 	// Props Destruction
-	const { isVisible, renderItem, handleSelect, getIsSelected, data, activeOption } = props;
+	const {
+		isVisible,
+		renderItem,
+		handleSelect,
+		getIsSelected,
+		data,
+		activeOption,
+		onReachEnd,
+		loading,
+	} = props;
+
+	// Variables
+	const ref = useRef<HTMLDivElement>(null);
 
 	// Functions
 	const generateDropdownItems = () => {
@@ -43,5 +60,21 @@ export default function MultiSelectDropdown(props: IMultiSelectDropdownProps) {
 		});
 	};
 
-	return <div className={clsx("dropdown", isVisible && "opened")}>{generateDropdownItems()}</div>;
+	// Handle Reach End
+	const handleScroll = () => {
+		if (ref?.current && onReachEnd) {
+			const bottom =
+				ref?.current?.scrollHeight - ref?.current?.scrollTop === ref?.current?.clientHeight;
+			bottom && onReachEnd();
+		}
+	};
+
+	return (
+		<div ref={ref} onScroll={handleScroll} className={clsx("dropdown", isVisible && "opened")}>
+			{generateDropdownItems()}
+			{data?.length === 0 && !loading && (
+				<p className="not-found">Aramanıza göre bir eşleşme bulunamadı</p>
+			)}
+		</div>
+	);
 }

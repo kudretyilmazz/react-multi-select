@@ -31,6 +31,13 @@
 			}
 		}
 
+		.spinner {
+			width: 32px;
+			height: 32px;
+			position: absolute;
+			right: 8px;
+		}
+
 		.selected-input-item {
 			flex-shrink: 0;
 			padding: $space-sm $space-md;
@@ -68,6 +75,11 @@
 			max-height: 400px;
 			opacity: 1;
 			overflow-y: auto;
+		}
+
+		.not-found {
+			text-align: center;
+			color: $primary-color;
 		}
 
 		.dropdown-option {

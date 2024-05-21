@@ -17,11 +17,13 @@ interface IMultiSelectProps {
 	data: Record<string, any>[];
 	renderItem: (item: Record<string, any>) => JSX.Element;
 	onSearch: (search: string) => void;
+	loading?: boolean;
+	onReachEnd?: () => void;
 }
 
 export default function MultiSelect(props: IMultiSelectProps) {
 	// Props Destruction
-	const { data, renderItem, valueKey, labelKey, onSearch } = props;
+	const { data = [], renderItem, valueKey, labelKey, onSearch, loading, onReachEnd } = props;
 
 	// States
 	const [isFocused, setIsFocused] = useState(false);
@@ -32,7 +34,7 @@ export default function MultiSelect(props: IMultiSelectProps) {
 	const ref = useOutsideClick(() => setIsFocused(false));
 
 	// Functions
-	const handleFocus = () => setIsFocused(!isFocused);
+	const handleFocus = () => setIsFocused(true);
 
 	const handleSelect = useCallback(
 		(item: Record<string, any>, optionIndex?: number) => {
@@ -107,6 +109,7 @@ export default function MultiSelect(props: IMultiSelectProps) {
 				handleFocus={handleFocus}
 				handleRemove={handleSelect}
 				onSearch={onSearch}
+				loading={loading}
 			/>
 			<MultiSelectDropdown
 				isVisible={isFocused}
@@ -115,6 +118,8 @@ export default function MultiSelect(props: IMultiSelectProps) {
 				handleSelect={handleSelect}
 				getIsSelected={getIsSelected}
 				activeOption={activeOption}
+				onReachEnd={onReachEnd}
+				loading={loading}
 			/>
 		</div>
 	);
